@@ -1,21 +1,21 @@
 //
 //  University.swift
-//  navigation
+//  UniBus
 //
 //  Created by Super Charge 1 on 23/11/26.
 //
 
 import Foundation
 
-struct Time
+struct Time: Codable
 {
     let hour: Int;
     let minute: Int;
 }
 
-struct University: Identifiable
+struct University: Identifiable, Codable
 {
-    let id = UUID();
+    let id: UUID;
     
     let name: String;
     let emailDomains: [String]; /// [ geu.ac.in, gehu.ac.in ]

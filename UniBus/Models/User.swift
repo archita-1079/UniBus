@@ -1,25 +1,25 @@
 //
 //  User.swift
-//  navigation
+//  UniBus
 //
 //  Created by Super Charge 1 on 23/11/26.
 //
 
 import Foundation
 
-enum UserRole
+enum UserRole: Codable
 {
     case student;
     case manager;
 }
 
-enum Profile
+enum Profile: Codable
 {
     case student(Student);
     case manager(Manager);
 }
 
-struct User: Identifiable
+struct User: Identifiable, Codable
 {
     let id: UUID;
     let university: UUID; // University id
@@ -30,17 +30,17 @@ struct User: Identifiable
     var profile: Profile;
 }
 
-struct Student
+struct Student: Codable
 {
     var homeStopID: UUID?;
     
     /// Daily timings
-    /// Index 0: Mon:- [morning, evening]
-    /// Index 1: Tue:- [morning, evening] and so on...
+    /// Index 0: Monday [morning, evening]
+    /// Index 1: Tuesday [morning, evening] and so on...
     var timings: [[Time?]];
 }
 
-struct Manager
+struct Manager: Codable
 {
     var isAdmin: Bool;
 }
