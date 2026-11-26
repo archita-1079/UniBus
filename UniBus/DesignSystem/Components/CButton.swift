@@ -11,7 +11,7 @@ enum CButtonType
 {
     case primary;
     case secondary;
-    case destructive;
+    case danger;
     case accent;
     case text;
 }
@@ -27,6 +27,14 @@ struct CButton: View
     
     let action: () -> Void;
     
+    init(text: String, type: CButtonType, action: @escaping() -> Void, icon: String? = nil)
+    {
+        self.text = text
+        self.type = type
+        self.action = action
+        self.icon = icon
+    }
+    
     private var backgroundColor: Color
     {
         switch(self.type)
@@ -35,7 +43,7 @@ struct CButton: View
             return AppColor.primary;
         case .secondary:
             return AppColor.primaryTint;
-        case .destructive:
+        case .danger:
             return AppColor.dangerTint;
         case .accent:
             return AppColor.accent;
@@ -52,7 +60,7 @@ struct CButton: View
             return AppColor.surface;
         case .secondary:
             return AppColor.primary;
-        case .destructive:
+        case .danger:
             return AppColor.danger;
         case .accent:
             return AppColor.navy;
@@ -99,6 +107,3 @@ struct CButton: View
     }
 }
 
-#Preview {
-    CButton(text: "Continue", icon: nil, type: .text, action: {() -> Void in print("Hello")});
-}
