@@ -14,8 +14,6 @@ struct StartScreen: View
     {
         VStack
         {
-            //Text("Start Screen");
-            
             ZStack(alignment: .bottomLeading){
                 
                 GeometryReader{

@@ -50,12 +50,14 @@ struct CTextField: View {
                 .font(AppFont.captionStrong)
                 .frame(maxWidth: .infinity, alignment: .leading);
             
-            HStack
+            HStack(spacing: Spacing.md)
             {
                 if let icon = self.icon
                 {
                     Image(systemName: icon)
-                        .foregroundStyle(AppColor.textSecondary);
+                        .foregroundStyle(AppColor.textSecondary)
+                        .font(AppFont.body)
+                        .aspectRatio(1, contentMode: .fit)
                 }
                 
                 self.field
@@ -65,11 +67,15 @@ struct CTextField: View {
                     .focused(self.$isFocused);
             }
             .padding(Spacing.lg)
-            .background(self.isFocused ? .clear : AppColor.background)
             .overlay(
                 RoundedRectangle(cornerRadius: Radius.lg)
-                    .stroke(self.isFocused ? AppColor.primary : AppColor.border, lineWidth: CGFloat(2))
+                    .stroke(
+                        self.isFocused ? AppColor.primary : AppColor.border,
+                        lineWidth: CGFloat(self.isFocused ? 2 : 1)
+                    )
             )
+            .background(self.isFocused ? .clear : AppColor.background)
+            .cornerRadius(Radius.lg)
             .animation(.easeInOut(duration: 0.25), value: self.isFocused);
         }
     }
