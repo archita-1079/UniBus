@@ -17,6 +17,17 @@ enum Profile: Codable
 {
     case student(Student);
     case manager(Manager);
+    
+    var role: UserRole
+    {
+        switch self
+        {
+        case .student:
+            return .student;
+        case .manager:
+            return .manager;
+        }
+    }
 }
 
 struct User: Identifiable, Codable
@@ -26,8 +37,10 @@ struct User: Identifiable, Codable
     
     var name: String;
     var email: String;
-    var role: UserRole;
     var profile: Profile;
+    var role: UserRole {
+        self.profile.role;
+    }
 }
 
 struct Student: Codable

@@ -18,14 +18,25 @@ enum CButtonType
 
 struct CButton: View
 {
-    let text: String;
-    let icon: String?;
-    let type: CButtonType;
+    private let text: String;
+    private let type: CButtonType;
+    private let action: () -> Void;
+    private let icon: String?;
     
     @State
     private var isLoading: Bool = false;
     
-    let action: () -> Void;
+    init(
+        text: String,
+        type: CButtonType,
+        action: @escaping () -> Void,
+        icon: String? = nil
+    ) {
+        self.text = text;
+        self.type = type;
+        self.action = action;
+        self.icon = icon;
+    }
     
     private var backgroundColor: Color
     {
@@ -100,5 +111,5 @@ struct CButton: View
 }
 
 #Preview {
-    CButton(text: "Continue", icon: nil, type: .text, action: {() -> Void in print("Hello")});
+    CButton(text: "Continue", type: .secondary, action: {() -> Void in print("Hello")}, icon: nil );
 }

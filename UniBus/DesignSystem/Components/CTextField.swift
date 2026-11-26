@@ -2,14 +2,14 @@ import SwiftUI
 
 struct CTextField: View {
     
-    let title: String;
-    let placeholder: String;
-    let isSecure: Bool;
+    private let title: String;
+    private let placeholder: String;
+    private let isSecure: Bool;
     
     @Binding
-    var text: String;
+    private var text: String;
     
-    let icon: String?;
+    private let icon: String?;
     
     @FocusState
     private var isFocused: Bool;
@@ -17,7 +17,7 @@ struct CTextField: View {
     @ViewBuilder
     private var field: some View
     {
-        if isSecure
+        if self.isSecure
         {
             SecureField(self.placeholder, text: self.$text);
         }
@@ -25,6 +25,20 @@ struct CTextField: View {
         {
             TextField(self.placeholder, text: self.$text);
         }
+    }
+    
+    init(
+        title: String,
+        placeholder: String,
+        isSecure: Bool,
+        text: Binding<String>,
+        icon: String? = nil
+    ) {
+        self.title = title;
+        self.placeholder = placeholder;
+        self.isSecure = isSecure;
+        self._text = text;
+        self.icon = icon;
     }
     
     var body: some View
@@ -44,7 +58,7 @@ struct CTextField: View {
                         .foregroundStyle(AppColor.textSecondary);
                 }
                 
-                field
+                self.field
                     .font(AppFont.body)
                     .keyboardType(.default)
                     .autocorrectionDisabled()
@@ -62,11 +76,15 @@ struct CTextField: View {
 }
 
 #Preview {
+    @Previewable
+    @State
+    var name = "Ramesh";
+    
     CTextField(
         title: "Name",
         placeholder: "Enter your name",
         isSecure: false,
-        text: .constant("Ramesh"),
+        text: $name,
         icon: "person"
     );
 }
